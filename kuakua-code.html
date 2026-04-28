@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坚持夸夸计划 - 60年约定</title>
+    <style>
+        :root {
+            --primary-pink: #ffb7c5;
+            --dark-pink: #ff4d6d;
+            --text-color: #594d5b;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fff5f7;
+            font-family: 'Microsoft YaHei', sans-serif;
+            color: var(--text-color);
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 183, 197, 0.3);
+            max-width: 90%;
+            width: 500px;
+        }
+
+        h1 {
+            color: var(--dark-pink);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .quote-box {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--primary-pink);
+            background: #fff0f3;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .timer-box {
+            margin-top: 30px;
+        }
+
+        .timer-label {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        #countdown {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-pink);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ 今日份赞美计划 ✨</h1>
+    
+    <div class="quote-box" id="kuakua-text">
+        正在为你准备今日份的甜言蜜语...
+    </div>
+
+    <div class="timer-box">
+        <div class="timer-label">距离 60 年目标还剩：</div>
+        <div id="countdown">计算中...</div>
+    </div>
+
+    <div class="footer">
+        浪漫是一辈子的事
+    </div>
+</div>
+
+<script>
+    // 1. 夸夸词库 (每天自动选一个)
+    const praises = [
+        "你今天散发的光芒，连太阳都想请假休息。",
+        "你不是在笑，是在给世界分发糖果。",
+        "想在你眼睛里买票，去看星辰大海。",
+        "你完美的避开了我对女孩子的所有差评。",
+        "众生皆苦，唯你又甜又飒。",
+        "你这种人，除了恋爱跟我没什么好谈的。",
+        "今天你的穿搭，简直是审美界的教科书。",
+        "如果美貌能纳税，你可能要补交一辈子的税。",
+        "你的温柔，比夏天的晚风更让人心动。",
+        "哪怕是随意的发丝，都长在了我的审美点上。"
+    ];
+
+    // 生成每日特定夸夸词
+    function getDailyPraise() {
+        const today = new Date();
+        const dateString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+        // 使用日期作为种子，确保今天内刷新页面词汇不变，但明天会变
+        let hash = 0;
+        for (let i = 0; i < dateString.length; i++) {
+            hash = dateString.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const index = Math.abs(hash) % praises.length;
+        document.getElementById('kuakua-text').innerText = praises[index];
+    }
+
+    // 2. 60年倒计时逻辑
+    // 假设从“现在”开始计时 60 年
+    const targetDate = new Date();
+    targetDate.setFullYear(targetDate.getFullYear() + 60);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('countdown').innerText = "目标达成！赞美了一辈子！";
+            return;
+        }
+
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText = 
+            `${years}年 ${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
+    }
+
+    // 初始化
+    getDailyPraise();
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+</body>
+</html>
