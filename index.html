@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>坚持夸夸计划 - 60年约定</title>
+    <title>60年浪漫计划</title>
     <style>
         :root {
             --primary-pink: #ffb7c5;
             --dark-pink: #ff4d6d;
-            --text-color: #594d5b;
+            --soft-bg: #fff5f7;
+            --text-main: #5d4a4a;
         }
 
         body {
@@ -18,86 +19,120 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #fff5f7;
-            font-family: 'Microsoft YaHei', sans-serif;
-            color: var(--text-color);
+            background: radial-gradient(circle, #ffffff 0%, var(--soft-bg) 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
         }
 
-        .container {
+        .card {
             text-align: center;
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 183, 197, 0.3);
-            max-width: 90%;
-            width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255, 183, 197, 0.2);
+            backdrop-filter: blur(10px);
+            max-width: 85%;
+            width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         h1 {
             color: var(--dark-pink);
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        .quote-box {
-            min-height: 100px;
+        .quote-container {
+            position: relative;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--primary-pink);
-            background: #fff0f3;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            font-style: italic;
+            margin-bottom: 40px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .timer-box {
-            margin-top: 30px;
+        .quote-container::before {
+            content: '“';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 3rem;
+            color: var(--primary-pink);
+            opacity: 0.5;
+        }
+
+        #kuakua-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            font-weight: 500;
+        }
+
+        .timer-section {
+            border-top: 1px dashed var(--primary-pink);
+            padding-top: 30px;
         }
 
         .timer-label {
-            font-size: 0.9rem;
-            color: #999;
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         #countdown {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            font-size: 1.1rem;
             color: var(--dark-pink);
+            background: #fff0f3;
+            padding: 10px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.1);
         }
 
         .footer {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #ccc;
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: #d0d0d0;
         }
+
+        /* 简单的数字跳动效果 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        #countdown { animation: pulse 2s infinite ease-in-out; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>✨ 今日份赞美计划 ✨</h1>
+<div class="card">
+    <h1>✨ 每日赞美寄存处 ✨</h1>
     
-    <div class="quote-box" id="kuakua-text">
-        正在为你准备今日份的甜言蜜语...
+    <div class="quote-container">
+        <div id="kuakua-text">正在为您挑选最美的语言...</div>
     </div>
 
-    <div class="timer-box">
-        <div class="timer-label">距离 60 年目标还剩：</div>
-        <div id="countdown">计算中...</div>
+    <div class="timer-section">
+        <div class="timer-label">距离 60 年约定还剩</div>
+        <div id="countdown">Loading...</div>
     </div>
 
     <div class="footer">
-        浪漫是一辈子的事
+        Since 2026.04.28 | 一辈子很长，慢慢夸
     </div>
 </div>
 
 <script>
-    // 1. 夸夸词库 (每天自动选一个)
+    // 1. 扩充后的夸夸库
     const praises = [
         "你今天散发的光芒，连太阳都想请假休息。",
         "你不是在笑，是在给世界分发糖果。",
@@ -108,48 +143,61 @@
         "今天你的穿搭，简直是审美界的教科书。",
         "如果美貌能纳税，你可能要补交一辈子的税。",
         "你的温柔，比夏天的晚风更让人心动。",
-        "哪怕是随意的发丝，都长在了我的审美点上。"
+        "哪怕是随意的发丝，都长在了我的审美点上。",
+        "你走路带风，连空气都变甜了。",
+        "发现一个秘密：你今天的可爱程度超标了。",
+        "你一定是碳酸饮料吧，不然我怎么一见到你就开心得冒泡？",
+        "有些人说不清哪里好，但就是谁都替代不了，比如你。",
+        "你是我见过最适合‘温柔’这两个字的人。",
+        "你的出现，让普通的日子变成了节日。"
     ];
 
-    // 生成每日特定夸夸词
-    function getDailyPraise() {
+    // 每日生成逻辑（基于日期哈希，确保每天唯一）
+    function updateDailyPraise() {
         const today = new Date();
-        const dateString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-        // 使用日期作为种子，确保今天内刷新页面词汇不变，但明天会变
+        // 关键：使用日期字符串作为随机种子
+        const seed = today.getFullYear() + "/" + (today.getMonth() + 1) + "/" + today.getDate();
         let hash = 0;
-        for (let i = 0; i < dateString.length; i++) {
-            hash = dateString.charCodeAt(i) + ((hash << 5) - hash);
+        for (let i = 0; i < seed.length; i++) {
+            hash = seed.charCodeAt(i) + ((hash << 5) - hash);
         }
         const index = Math.abs(hash) % praises.length;
         document.getElementById('kuakua-text').innerText = praises[index];
     }
 
-    // 2. 60年倒计时逻辑
-    // 假设从“现在”开始计时 60 年
-    const targetDate = new Date();
-    targetDate.setFullYear(targetDate.getFullYear() + 60);
+    // 2. 固定终点的倒计时逻辑 (2086年4月28日)
+    const targetDate = new Date("2086/04/28 00:00:00").getTime();
 
     function updateCountdown() {
-        const now = new Date();
+        const now = new Date().getTime();
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            document.getElementById('countdown').innerText = "目标达成！赞美了一辈子！";
+            document.getElementById('countdown').innerText = "目标达成！这是一辈子的浪漫。";
             return;
         }
 
-        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        // 计算时间常数
+        const msPerYear = 1000 * 60 * 60 * 24 * 365.25;
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const msPerHour = 1000 * 60 * 60;
+        const msPerMin = 1000 * 60;
+
+        const years = Math.floor(diff / msPerYear);
+        const days = Math.floor((diff % msPerYear) / msPerDay);
+        const hours = Math.floor((diff % msPerDay) / msPerHour);
+        const minutes = Math.floor((diff % msPerHour) / msPerMin);
+        const seconds = Math.floor((diff % msPerMin) / 1000);
+
+        // 补零处理
+        const format = (num) => String(num).padStart(2, '0');
 
         document.getElementById('countdown').innerText = 
-            `${years}年 ${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
+            `${years}年 ${days}天 ${format(hours)}:${format(minutes)}:${format(seconds)}`;
     }
 
-    // 初始化
-    getDailyPraise();
+    // 初始化运行
+    updateDailyPraise();
     setInterval(updateCountdown, 1000);
     updateCountdown();
 </script>
